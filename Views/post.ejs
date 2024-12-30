@@ -3,8 +3,25 @@
     <%- include('Layouts/header') %>
 <body>
     <%- include('Layouts/navbar') %>
-    <h1 class="display-3">Single Post</h1>
-
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/blogs">Blogs</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Current Post</li>
+        </ol>
+      </nav>
+    <!-- <h1 class="display-3">Single Post</h1> -->
+    <div class="row">
+        <div class="col-lg-4 col-md-12 mx-auto">
+                <div class="card mb-2">
+                    <div class="card-header">
+                        <h2><%- blogpost.title %></h2></a>
+                    </div>
+                    <div class="card-body">
+                        <p><%= blogpost.body %></p>
+                    </div>
+                </div> 
+        </div>
+      </div>
 
     <%- include('Layouts/footer') %>
     <%- include('Layouts/scripts') %>

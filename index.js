@@ -38,11 +38,21 @@ app.get('/about', function (req,res){
 app.get('/contact', function (req,res){
     res.render('contact');  
 });
-app.get('/post', function (req,res){
-    res.render('post');  
+app.get('/post/:id', async function (req,res){
+    const blogpost = await BlogPost.findById(req.params.id);
+    res.render('post', {
+        blogpost
+    }); 
+    //console.log(blogpost); 
 });
-app.get('/blogs', function (req,res){
-    res.render('blogs');  
+app.get('/blogs', async function (req,res){
+    const blogposts = await BlogPost.find({});
+    res.render('blogs', {
+        blogposts
+    }); 
+    for(var i=0; i<blogposts.length; i++){
+        console.log(blogposts[i]);
+    }
 });
 app.get('/post/new', function (req,res){
     res.render('create');  
