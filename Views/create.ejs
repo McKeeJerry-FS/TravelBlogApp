@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
     <%- include('Layouts/header') %>
-<body style="background-color: lightgrey;">
+<body class="container-fluid" style="background-color: lightgrey;">
     <%- include('Layouts/navbar') %>
-    <h1 class="display-4 text-center">Create a New Post</h1>
     
-    <div class="card">
+    <div class="card w-50 d-flex align-items-center mx-auto mt-5">
+        <div class="card-header bg-secondary w-100">
+            <h1 class="display-5 text-center text-light">Create a New Post</h1>
+        </div>
         <div class="card-body">
             <form action="/post/store" method="POST">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="title" name="title" required>
+                    <input type="text" class="form-control w-100" id="title" name="title" required>
                 </div>
                 <div class="mb-3">
                     <label for="body" class="form-label">Content</label>
-                    <textarea class="form-control" id="body" name="body" rows="3" required></textarea>
+                    <textarea class="form-control w-100" id="body" name="body" rows="3" cols="20" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
