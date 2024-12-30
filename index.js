@@ -2,7 +2,8 @@ const express = require('express'),
       path = require('path'),
       ejs = require('ejs'),
       bodyParser = require('body-parser'),
-      mongoose = require('mongoose');
+      mongoose = require('mongoose'),
+      BlogPost = require('./models/blogpost');
 const app = express();
 require('dotenv').config();
 
@@ -51,7 +52,7 @@ app.get('/notfound', function (req,res){
 });
 
 app.post('/post/store', async (req, res) => {
-    await BlogPost.create(req.body, (error, post) => {
+    await BlogPost.create(req.body, (error, blogpost) => {
         res.redirect('/blogs');
     });
 });

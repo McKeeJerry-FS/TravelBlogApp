@@ -1,9 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
     <%- include('Layouts/header') %>
-<body>
+<body style="background-color: lightgrey;">
     <%- include('Layouts/navbar') %>
-    <h1 class="display-3">Create a New Post</h1>
+    <h1 class="display-4 text-center">Create a New Post</h1>
+    
+    <div class="card">
+        <div class="card-body">
+            <form action="/post/store" method="POST">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="body" class="form-label">Content</label>
+                    <textarea class="form-control" id="body" name="body" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    
 
 
     <%- include('Layouts/footer') %>
