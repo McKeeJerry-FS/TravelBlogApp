@@ -47,9 +47,17 @@ app.get('/blogs', async function (req,res){
         console.log(blogposts[i]);
     }
 });
-//  ORDER MATTERS HERE!! '/post/new' must come before '/post/:id'. The reason being is if /post/:id is placed before /post/new, the server will treat new as an id and will not render the create.ejs file. That is because 'new' matches the '/:id' profile
+
+//  ORDER MATTERS HERE!! '/post/new' must come before '/post/:id'.
+//  The reason being is if /post/:id is placed before /post/new, the server will treat new as an id and will not render the create.ejs file. That is because 'new' matches the '/:id' profile. 
+//  This goes the same for '/post/store' and '/post/:id'. '/post/:id' must come after '/post/store' because the server will treat 'store' as an id and will not render the post.ejs file.
 app.get('/post/new', function (req,res){
     res.render('create');  
+});
+app.post('/post/store', async (req, res) => {
+    await BlogPost.create(req.body, (error, blogpost) => {
+        res.redirect('/blogs');
+    });
 });
 app.get('/post/:id', async function (req,res){
     const blogpost = await BlogPost.findById(req.params.id);
@@ -58,15 +66,17 @@ app.get('/post/:id', async function (req,res){
     }); 
     //console.log(blogpost); 
 });
+
+
+
+
+
+
+
 app.get('/notfound', function (req,res){
     res.render('notfound');  
 });
 
-app.post('/post/store', async (req, res) => {
-    await BlogPost.create(req.body, (error, blogpost) => {
-        res.redirect('/blogs');
-    });
-});
 
 // Port Listening & Database connection check
 app.listen(port, () => {

@@ -9,6 +9,11 @@
   height: 100vh;
 }
 
+#intro {
+  /* Margin to fix overlapping fixed navbar */
+  margin-top: 58px;
+}
+
 .carousel-item:nth-child(1) {
   background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
   background-repeat: no-repeat;
