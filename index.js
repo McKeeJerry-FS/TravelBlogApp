@@ -47,7 +47,7 @@ app.get('/blogs', async function (req,res){
         console.log(blogposts[i]);
     }
 });
-//  /post/new must come before /post/:id. The reason being is if /post/:id is placed before /post/new, the server will treat new as an id and will not render the create.ejs file. That is because 'new' matches the '/:id' profile
+//  ORDER MATTERS HERE!! '/post/new' must come before '/post/:id'. The reason being is if /post/:id is placed before /post/new, the server will treat new as an id and will not render the create.ejs file. That is because 'new' matches the '/:id' profile
 app.get('/post/new', function (req,res){
     res.render('create');  
 });
