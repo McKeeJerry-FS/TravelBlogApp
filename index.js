@@ -1,9 +1,9 @@
 const express = require('express'),
-      path = require('path'),
-      ejs = require('ejs'),
-      bodyParser = require('body-parser'),
-      mongoose = require('mongoose'),
-      BlogPost = require('./models/blogpost');
+        // path = require('path'),
+        ejs = require('ejs'),
+        bodyParser = require('body-parser'),
+        mongoose = require('mongoose'),
+        BlogPost = require('./models/blogpost');
 const app = express();
 require('dotenv').config();
 
@@ -29,8 +29,11 @@ app.use(express.static('public'));
 const port = 3000 || process.env.PORT;
 
 
-app.get('/', function (req,res){
-    res.render('index');  
+app.get('/', async function (req,res){
+    const blogpost = await BlogPost.find({}).sort({_id: -1}).limit({limit: 1});
+    res.render('index', {
+        blogpost
+    });  
 });
 app.get('/about', function (req,res){
     res.render('about');  
@@ -39,7 +42,7 @@ app.get('/contact', function (req,res){
     res.render('contact');  
 });
 app.get('/blogs', async function (req,res){
-    const blogposts = await BlogPost.find({});
+    const blogposts = await BlogPost.find({}).sort({_id: -1}).limit({limit: 10});
     res.render('blogs', {
         blogposts
     }); 
