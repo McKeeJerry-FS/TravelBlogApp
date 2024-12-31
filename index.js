@@ -38,13 +38,6 @@ app.get('/about', function (req,res){
 app.get('/contact', function (req,res){
     res.render('contact');  
 });
-app.get('/post/:id', async function (req,res){
-    const blogpost = await BlogPost.findById(req.params.id);
-    res.render('post', {
-        blogpost
-    }); 
-    //console.log(blogpost); 
-});
 app.get('/blogs', async function (req,res){
     const blogposts = await BlogPost.find({});
     res.render('blogs', {
@@ -54,8 +47,16 @@ app.get('/blogs', async function (req,res){
         console.log(blogposts[i]);
     }
 });
+//  /post/new must come before /post/:id. The reason being is if /post/:id is placed before /post/new, the server will treat new as an id and will not render the create.ejs file. That is because 'new' matches the '/:id' profile
 app.get('/post/new', function (req,res){
     res.render('create');  
+});
+app.get('/post/:id', async function (req,res){
+    const blogpost = await BlogPost.findById(req.params.id);
+    res.render('post', {
+        blogpost
+    }); 
+    //console.log(blogpost); 
 });
 app.get('/notfound', function (req,res){
     res.render('notfound');  
