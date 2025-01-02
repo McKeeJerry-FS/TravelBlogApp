@@ -1,9 +1,18 @@
 const express = require('express'),
+<<<<<<< HEAD
         // path = require('path'),
         ejs = require('ejs'),
         bodyParser = require('body-parser'),
         mongoose = require('mongoose'),
         BlogPost = require('./models/blogpost');
+=======
+      path = require('path'),
+      ejs = require('ejs'),
+      bodyParser = require('body-parser'),
+      mongoose = require('mongoose'),
+      BlogPost = require('./models/blogpost'),
+      fileUpload = require('express-fileupload');
+>>>>>>> 36d6fda (added the ability to add an image)
 const app = express();
 require('dotenv').config();
 
@@ -25,6 +34,7 @@ app.set('view engine', 'ejs');
 
 // Styles & Scripts
 app.use(express.static('public'));
+app.use(fileUpload());
 
 const port = 3000 || process.env.PORT;
 
@@ -58,7 +68,12 @@ app.get('/post/new', function (req,res){
     res.render('create');  
 });
 app.post('/post/store', async (req, res) => {
-    await BlogPost.create(req.body, (error, blogpost) => {
+    var image = req.files.image;
+    image.mv(path.resolve(__dirname, 'public/img', image.name), async(error)=> {
+        await BlogPost.create({
+            ...req.body,
+            image: '/img/' + image.name
+        });
         res.redirect('/blogs');
     });
 });

@@ -4,19 +4,31 @@
 <body class="container-fluid" style="background-color: lightgrey;">
     <%- include('Layouts/navbar') %>
     
-    <div class="card w-50 d-flex align-items-center mx-auto mt-5">
+    <div class="card mx-auto mt-5">
         <div class="card-header bg-secondary w-100">
             <h1 class="display-5 text-center text-light">Create a New Post</h1>
         </div>
         <div class="card-body">
             <form action="/post/store" method="POST">
                 <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" class="form-control w-100" id="title" name="title" required>
+                    <!-- <label for="title" class="form-label">Title</label> -->
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Post Title" required>
                 </div>
                 <div class="mb-3">
-                    <label for="body" class="form-label">Content</label>
-                    <textarea class="form-control w-100" id="body" name="body" rows="3" cols="20" required></textarea>
+                    <!-- <label for="title" class="form-label">Title</label> -->
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="mb-3">
+                    <!-- <label for="body" class="form-label">Username</label> -->
+                    <input class="form-control" id="username" name="unername" placeholder="Username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="body" class="form-label">Choose An Image</label>
+                    <input type="file" class="form-control" id="image" name="image" required>
+                </div>
+                <div class="mb-3">
+                    <!-- <label for="body" class="form-label">Content</label> -->
+                    <textarea class="form-control" id="body" name="body" rows="3" cols="20" placeholder="Write your post here" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
