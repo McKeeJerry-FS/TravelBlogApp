@@ -1,18 +1,10 @@
 const express = require('express'),
-<<<<<<< HEAD
-        // path = require('path'),
-        ejs = require('ejs'),
-        bodyParser = require('body-parser'),
-        mongoose = require('mongoose'),
-        BlogPost = require('./models/blogpost');
-=======
       path = require('path'),
       ejs = require('ejs'),
       bodyParser = require('body-parser'),
       mongoose = require('mongoose'),
       BlogPost = require('./models/blogpost'),
       fileUpload = require('express-fileupload');
->>>>>>> 36d6fda (added the ability to add an image)
 const app = express();
 require('dotenv').config();
 

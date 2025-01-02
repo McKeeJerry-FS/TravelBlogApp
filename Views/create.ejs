@@ -9,7 +9,7 @@
             <h1 class="display-5 text-center text-light">Create a New Post</h1>
         </div>
         <div class="card-body">
-            <form action="/post/store" method="POST">
+            <form action="/post/store" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
                     <!-- <label for="title" class="form-label">Title</label> -->
                     <input type="text" class="form-control" id="title" name="title" placeholder="Post Title" required>
@@ -23,8 +23,9 @@
                     <input class="form-control" id="username" name="unername" placeholder="Username" required>
                 </div>
                 <div class="mb-3">
-                    <label for="body" class="form-label">Choose An Image</label>
-                    <input type="file" class="form-control" id="image" name="image" required>
+                    <!-- <label for="image" class="form-label">Choose An Image</label> -->
+                     Choose an image
+                    <input type="file" required name="image" id="image" class="form-control">
                 </div>
                 <div class="mb-3">
                     <!-- <label for="body" class="form-label">Content</label> -->
