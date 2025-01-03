@@ -3,8 +3,50 @@
 <%- include('Layouts/header') %>
 <body style="background-color: lightgrey;">
     <%- include('Layouts/navbar') %>
-    <h1 class="display-3">About page</h1>
+    <h1 class="display-3 text-center text-light">About page</h1>
+    <section id="family">
 
+    </section>
+    <section id="authDev"> 
+
+    </section>
+    <section id="techStack">
+        <h2 class="display-5">Tech Stack</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>Frontend</h3>
+                    <ul>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
+                        <li>Bootstrap</li>
+                        <li>jQuery</li>
+                        <li>EJS</li>
+                        <li>MDS</li>
+
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h3>Backend</h3>
+                    <ul>
+                        <li>Node.js</li>
+                        <li>Express.js</li>
+                        <li>Passport.js</li>
+                        <li>Mongoose</li>
+                        <li>MongoDB</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h3>Deployment</h3>
+                    <ul>
+                        <li>Heroku</li>
+                        <!-- <li>Atlas</li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <%- include('Layouts/footer') %>
     <%- include('Layouts/scripts') %>
