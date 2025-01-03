@@ -6,9 +6,15 @@ module.exports = (req, res) => {
     
     User.findOne({ username:username }, (err, user) => {
         if(user) {
-            bcrypt.compare(password, user.password, (err, user) => {
-                res.redirect('/'); 
-            });
+            bcrypt.compare(password, user.password, (err, same) => {
+                if(same){
+                    res.redirect('/'); 
+                } 
+                else {
+                    res.redirect('/auth/login');
+                    console.log('Password is incorrect'), err;
+                }
+            })
         } else {
             res.redirect('/auth/login');
         }
