@@ -5,6 +5,7 @@ const express = require('express'),
       mongoose = require('mongoose'),
       BlogPost = require('./models/blogpost'),
       fileUpload = require('express-fileupload'),
+      session = require('express-session'),
       bcrypt = require('bcrypt');
 const app = express();
 require('dotenv').config();
@@ -38,6 +39,8 @@ const registerUserController = require('./controllers/storeUser');
 const newUserController = require('./controllers/newUser');
 const loginController = require('./controllers/login');
 const loginUserController = require('./controllers/loginUser');
+const authMiddleware = require('./middlewares/authMiddleware');
+const redirectAuthenticated = require('./middlewares/redirectAuthenticated');
 
 // Setup for ejs
 app.set('view engine', 'ejs');
@@ -45,6 +48,9 @@ app.set('view engine', 'ejs');
 // Styles & Scripts
 app.use(express.static('public'));
 app.use(fileUpload());
+app.use(session({
+    secret: 'bonsai25',
+}));
 
 const port = 3000 || process.env.PORT;
 
@@ -56,14 +62,22 @@ app.get('/blogs', blogsController);
 //  ORDER MATTERS HERE!! '/post/new' must come before '/post/:id'.
 //  The reason being is if /post/:id is placed before /post/new, the server will treat new as an id and will not render the create.ejs file. That is because 'new' matches the '/:id' profile. 
 //  This goes the same for '/post/store' and '/post/:id'. '/post/:id' must come after '/post/store' because the server will treat 'store' as an id and will not render the post.ejs file.
-app.get('/post/new', newPostController);
-app.post('/post/store', storePostController);
+app.get('/post/new', authMiddleware, newPostController);
+app.post('/post/store', authMiddleware, storePostController);
 app.get('/post/:id', singlePostController);
+///////////////////////////////////////////
+
+global.loggedIn = null;
+app.use('*', (req, res, next) => {
+    loggedIn = req.session.userId;
+    next();
+});
+
 // Handling Registration and login / logout
-app.get('/auth/register', newUserController);
-app.get('/auth/login', loginController);
-app.post('/users/register', registerUserController);
-app.post('/users/login', loginUserController);
+app.get('/auth/register', redirectAuthenticated, newUserController);
+app.get('/auth/login', redirectAuthenticated, loginController);
+app.post('/users/register', redirectAuthenticated, registerUserController);
+app.post('/users/login', redirectAuthenticated, loginUserController);
 
 
 
