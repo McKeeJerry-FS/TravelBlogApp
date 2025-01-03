@@ -21,6 +21,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
+// Controllers
+const newPostController = require('./controllers/newPost');
+const blogsController = require('./controllers/blogcontroller');
+const contactController = require('./controllers/contact');
+const storePostController = require('./controllers/storePost');
+const homeController = require('./controllers/home');
+const aboutController = require('./controllers/about');
+const singlePostController = require('./controllers/singlePost');
+
 // Setup for ejs
 app.set('view engine', 'ejs');
 
@@ -31,51 +40,17 @@ app.use(fileUpload());
 const port = 3000 || process.env.PORT;
 
 
-app.get('/', async function (req,res){
-    const blogpost = await BlogPost.find({}).sort({_id: -1}).limit({limit: 1});
-    res.render('index', {
-        blogpost
-    });  
-});
-app.get('/about', function (req,res){
-    res.render('about');  
-});
-app.get('/contact', function (req,res){
-    res.render('contact');  
-});
-app.get('/blogs', async function (req,res){
-    const blogposts = await BlogPost.find({}).sort({_id: -1}).limit({limit: 10});
-    res.render('blogs', {
-        blogposts
-    }); 
-    for(var i=0; i<blogposts.length; i++){
-        console.log(blogposts[i]);
-    }
-});
+app.get('/', homeController);
+app.get('/about', aboutController);
+app.get('/contact', contactController);
+app.get('/blogs', blogsController);
 
 //  ORDER MATTERS HERE!! '/post/new' must come before '/post/:id'.
 //  The reason being is if /post/:id is placed before /post/new, the server will treat new as an id and will not render the create.ejs file. That is because 'new' matches the '/:id' profile. 
 //  This goes the same for '/post/store' and '/post/:id'. '/post/:id' must come after '/post/store' because the server will treat 'store' as an id and will not render the post.ejs file.
-app.get('/post/new', function (req,res){
-    res.render('create');  
-});
-app.post('/post/store', async (req, res) => {
-    var image = req.files.image;
-    image.mv(path.resolve(__dirname, 'public/img', image.name), async(error)=> {
-        await BlogPost.create({
-            ...req.body,
-            image: '/img/' + image.name
-        });
-        res.redirect('/blogs');
-    });
-});
-app.get('/post/:id', async function (req,res){
-    const blogpost = await BlogPost.findById(req.params.id);
-    res.render('post', {
-        blogpost
-    }); 
-    //console.log(blogpost); 
-});
+app.get('/post/new', newPostController);
+app.post('/post/store', storePostController);
+app.get('/post/:id', singlePostController);
 
 
 
