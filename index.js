@@ -15,23 +15,29 @@ mongoose.connect(process.env.MONGO_URL,
 );
 
 
+const validationMiddlewares = require('./middlewares/validationMiddleware');
 
-
-// Use body-parser
+// Middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+//app.use('/posts/store', validationMiddlewares);
+
 
 
 // Controllers
-const newPostController = require('./controllers/newPost');
+//Blog Posts
+const newPostController = require('./controllers/newPost', validationMiddlewares);
 const blogsController = require('./controllers/blogcontroller');
 const contactController = require('./controllers/contact');
 const storePostController = require('./controllers/storePost');
 const homeController = require('./controllers/home');
 const aboutController = require('./controllers/about');
 const singlePostController = require('./controllers/singlePost');
+// User registration and login / logout
 const registerUserController = require('./controllers/storeUser');
 const newUserController = require('./controllers/newUser');
+const loginController = require('./controllers/login');
+const loginUserController = require('./controllers/loginUser');
 
 // Setup for ejs
 app.set('view engine', 'ejs');
@@ -47,14 +53,17 @@ app.get('/', homeController);
 app.get('/about', aboutController);
 app.get('/contact', contactController);
 app.get('/blogs', blogsController);
-app.get('/newUser', newUserController);
 //  ORDER MATTERS HERE!! '/post/new' must come before '/post/:id'.
 //  The reason being is if /post/:id is placed before /post/new, the server will treat new as an id and will not render the create.ejs file. That is because 'new' matches the '/:id' profile. 
 //  This goes the same for '/post/store' and '/post/:id'. '/post/:id' must come after '/post/store' because the server will treat 'store' as an id and will not render the post.ejs file.
 app.get('/post/new', newPostController);
 app.post('/post/store', storePostController);
-app.post('/user/register', registerUserController);
 app.get('/post/:id', singlePostController);
+// Handling Registration and login / logout
+app.get('/auth/register', newUserController);
+app.get('/auth/login', loginController);
+app.post('/users/register', registerUserController);
+app.post('/users/login', loginUserController);
 
 
 
