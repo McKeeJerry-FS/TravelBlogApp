@@ -38,6 +38,7 @@ const singlePostController = require('./controllers/singlePost');
 const registerUserController = require('./controllers/storeUser');
 const newUserController = require('./controllers/newUser');
 const loginController = require('./controllers/login');
+const logoutController = require('./controllers/logout');
 const loginUserController = require('./controllers/loginUser');
 const authMiddleware = require('./middlewares/authMiddleware');
 const redirectAuthenticated = require('./middlewares/redirectAuthenticated');
@@ -76,18 +77,11 @@ app.use('*', (req, res, next) => {
 // Handling Registration and login / logout
 app.get('/auth/register', redirectAuthenticated, newUserController);
 app.get('/auth/login', redirectAuthenticated, loginController);
+app.get('/auth/logout', logoutController);
 app.post('/users/register', redirectAuthenticated, registerUserController);
 app.post('/users/login', redirectAuthenticated, loginUserController);
 
-
-
-
-
-
-
-app.get('/notfound', function (req,res){
-    res.render('notfound');  
-});
+app.use((req, res) => res.render('notfound'));
 
 
 // Port Listening & Database connection check

@@ -14,11 +14,13 @@
         <li class="nav-item active">
           <a class="nav-link" aria-current="page" href="/">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/blogs">All Blogs</a>
-        </li>
+        <% if (loggedIn) { %>
         <li class="nav-item">
           <a class="nav-link" href="/post/new">Create a New Blog</a>
+        </li>
+        <% } %>
+        <li class="nav-item">
+          <a class="nav-link" href="/blogs">All Blogs</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/about">About Us</a>
@@ -26,37 +28,21 @@
         <li class="nav-item">
           <a class="nav-link" href="/contact">Contact Us</a>
         </li>
+        
+      </ul>
+
+      <% if(!loggedIn) { %>
+      <ul class="navbar-nav d-flex flex-row">
         <li class="nav-item">
           <a class="nav-link" href="/auth/register">Register</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/auth/login">Login</a>
+          <a class="nav-link" href="/auth/login"><i class="bi bi-door-open"></i></a>
         </li>
-      </ul>
-
-      <ul class="navbar-nav d-flex flex-row">
-        <!-- Icons -->
-        <li class="nav-item me-3 me-lg-0">
-          <a class="nav-link" href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA" rel="nofollow"
-            target="_blank">
-            <i class="fab fa-youtube"></i>
-          </a>
-        </li>
-        <li class="nav-item me-3 me-lg-0">
-          <a class="nav-link" href="https://www.facebook.com/mdbootstrap" rel="nofollow" target="_blank">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-        </li>
-        <li class="nav-item me-3 me-lg-0">
-          <a class="nav-link" href="https://twitter.com/MDBootstrap" rel="nofollow" target="_blank">
-            <i class="fab fa-twitter"></i>
-          </a>
-        </li>
-        <li class="nav-item me-3 me-lg-0">
-          <a class="nav-link" href="https://github.com/mdbootstrap/mdb-ui-kit" rel="nofollow" target="_blank">
-            <i class="fab fa-github"></i>
-          </a>
-        </li>
+        <% } %>
+        <% if (loggedIn) { %>
+          <a class="nav-link" href="/auth/logout"><i class="bi bi-door-closed-fill"></i></a>
+        <% } %>
       </ul>
     </div>
   </div>
