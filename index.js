@@ -6,7 +6,8 @@ const express = require('express'),
       BlogPost = require('./models/blogpost'),
       fileUpload = require('express-fileupload'),
       session = require('express-session'),
-      bcrypt = require('bcrypt');
+      bcrypt = require('bcrypt'),
+      flash = require('connect-flash');
 const app = express();
 require('dotenv').config();
 
@@ -49,6 +50,7 @@ app.set('view engine', 'ejs');
 // Styles & Scripts
 app.use(express.static('public'));
 app.use(fileUpload());
+app.use(flash());
 app.use(session({
     secret: 'bonsai25',
 }));

@@ -29,8 +29,16 @@
                 </div>
                 <div class="mb-3">
                     <!-- <label for="body" class="form-label">Content</label> -->
-                    <textarea class="form-control" id="body" name="body" rows="3" cols="20" placeholder="Write your post here" required></textarea>
+                    <textarea class="form-control" id="body" name="body" spellcheck="true"   placeholder="Write your post here" required></textarea>
                 </div>
+
+                <script>
+                    $('#body').summernote({
+                        placeholder: 'Write your post here',
+                        tabsize: 4,
+                        height: 200
+                    });
+                </script>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
