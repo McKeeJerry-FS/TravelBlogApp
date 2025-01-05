@@ -43,6 +43,7 @@ const logoutController = require('./controllers/logout');
 const loginUserController = require('./controllers/loginUser');
 const authMiddleware = require('./middlewares/authMiddleware');
 const redirectAuthenticated = require('./middlewares/redirectAuthenticated');
+const notFoundController = require('./controllers/notfound');
 
 // Setup for ejs
 app.set('view engine', 'ejs');
@@ -62,6 +63,7 @@ app.get('/index', homeController);
 app.get('/about', aboutController);
 app.get('/contact', contactController);
 app.get('/blogs', blogsController);
+
 //  ORDER MATTERS HERE!! '/post/new' must come before '/post/:id'.
 //  The reason being is if /post/:id is placed before /post/new, the server will treat new as an id and will not render the create.ejs file. That is because 'new' matches the '/:id' profile. 
 //  This goes the same for '/post/store' and '/post/:id'. '/post/:id' must come after '/post/store' because the server will treat 'store' as an id and will not render the post.ejs file.
@@ -83,7 +85,8 @@ app.get('/auth/logout', logoutController);
 app.post('/users/register', redirectAuthenticated, registerUserController);
 app.post('/users/login', redirectAuthenticated, loginUserController);
 
-app.use((req, res) => res.render('notfound'));
+app.get('/notfound', notFoundController);
+// app.use((req, res) => res.render('notfound'));
 
 
 // Port Listening & Database connection check
