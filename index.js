@@ -58,7 +58,7 @@ app.use(session({
 const port = 3000 || process.env.PORT;
 
 // Controllers
-app.get('/', homeController);
+app.get('/index', homeController);
 app.get('/about', aboutController);
 app.get('/contact', contactController);
 app.get('/blogs', blogsController);
