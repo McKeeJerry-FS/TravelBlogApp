@@ -87,11 +87,15 @@ app.use((req, res) => res.render('notfound'));
 
 
 // Port Listening & Database connection check
-app.listen(port, () => {
-    console.log(`App is listening on Port: ${port}`);
-    if(mongoose){
-        console.log('Database connected');
-    } else {
-        console.log('Database connection failed');
-    }
-});
+// app.listen(port, () => {
+//     console.log(`App is listening on Port: ${port}`);
+//     if(mongoose){
+//         console.log('Database connected');
+//     } else {
+//         console.log('Database connection failed');
+//     }
+// });
+
+app.listen(process.env.PORT || 3000, function(){
+    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+  });
