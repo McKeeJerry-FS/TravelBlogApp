@@ -46,7 +46,7 @@ const redirectAuthenticated = require('./middlewares/redirectAuthenticated');
 const notFoundController = require('./controllers/notfound');
 
 // Setup for ejs
-app.set("views", path.join(__dirname, "views"));
+app.set('views', './views');
 app.set('view engine', 'ejs');
 
 // Styles & Scripts
