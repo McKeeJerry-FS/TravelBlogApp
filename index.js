@@ -57,7 +57,7 @@ app.use(session({
     secret: 'bonsai25',
 }));
 
-const port = 3000 || process.env.PORT;
+const port = process.env.PORT || 3000 ;
 
 // Controllers
 app.get('/', homeController);
